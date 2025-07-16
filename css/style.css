@@ -1,19 +1,41 @@
-/* CSS RESET */
+/* CSS Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 /* H1 */
-.team-title {
-  background-color: #212529;
-  color: #fff;
+h1 {
   font-weight: 700;
+  font-size: 2.5rem;
+  color: #0d6efd;
   text-transform: uppercase;
-  padding: 1rem 1.5rem;
+  letter-spacing: 2px;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* FORM BUTTON */
+#add-member-form button {
+  background-color: royalblue;
+  border-color: royalblue;
+  color: white;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+#add-member-form button:hover {
+  background-color: #4169e1; 
+  border-color: #4169e1;
+  color: white;
+}
+
+/* FORM CONTAINER */
+#form-wrapper {
+  margin-top: 2rem;
   border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgb(0 0 0 / 0.3);
-  display: inline-block;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  letter-spacing: 0.05em;
+  padding: 1rem;
+  background-color: #212529; /* stesso sfondo dark delle card */
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+  color: white;
 }

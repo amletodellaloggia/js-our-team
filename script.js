@@ -41,8 +41,41 @@ const teamMembers = [
 const container = document.getElementById("team-container");
 container.classList.add("row", "gx-3", "gy-3", "px-3", "px-md-5"); // Aggiungo classi Bootstrap
 
-// Per ogni membro del team, creo una card
-teamMembers.forEach((member) => {
+// Creo il form per aggiungere membri
+const formWrapper = document.createElement("div");
+formWrapper.id = "form-wrapper";
+formWrapper.className = "bg-dark text-white shadow-sm rounded p-3 mb-4 mx-3 mx-md-5";
+
+const form = document.createElement("form");
+form.id = "add-member-form";
+form.className = "row g-3 justify-content-center";
+
+form.innerHTML = `
+  <div class="col-12 col-md-3">
+    <input type="text" class="form-control" id="name" placeholder="Nome" required />
+  </div>
+  <div class="col-12 col-md-3">
+    <input type="text" class="form-control" id="role" placeholder="Ruolo" required />
+  </div>
+  <div class="col-12 col-md-4">
+    <input type="email" class="form-control" id="email" placeholder="Email" required />
+  </div>
+  <div class="col-12 col-md-2 d-grid">
+    <button type="submit" class="btn btn-primary">Aggiungi</button>
+  </div>
+`;
+
+formWrapper.appendChild(form);
+
+const mainContainer = container.closest(".container");
+if (mainContainer) {
+  mainContainer.appendChild(formWrapper);
+} else {
+  document.body.appendChild(formWrapper);
+}
+
+// Funzione per creare card e inserirle nel container
+function addMemberCard(member) {
   // Uso destructuring per estrarre i campi da ogni oggetto
   const { name, role, email, img } = member;
 
@@ -56,12 +89,16 @@ teamMembers.forEach((member) => {
 
   // Creo l'immagine del membro (sarà affiancata al testo)
   const image = document.createElement("img");
-  Object.assign(image, {
-    src: img,
-    alt: name,
-    className: "img-fluid",
-    style: "width: 100px; height: 100%; object-fit: cover",
-  });
+  Object.assign(image.style, {
+  width: "100px",
+  height: "100%",
+  objectFit: "cover",
+  display: "block",
+});
+
+image.src = img;
+image.alt = name;
+card.style.height = "100px";
 
   // Creo il corpo della card con nome, ruolo e email
   const body = document.createElement("div");
@@ -94,4 +131,28 @@ teamMembers.forEach((member) => {
 
   // Inserisco la colonna nel container principale
   container.appendChild(col);
+}
+
+teamMembers.forEach(addMemberCard);
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const name = form.name.value;
+  const role = form.role.value;
+  const email = form.email.value;
+
+  if (name === "" || role === "" || email === "") return;
+
+  const newMember = {
+    name,
+    role,
+    email,
+    img: "img/newmember.png",
+  };
+
+  teamMembers.push(newMember);
+  addMemberCard(newMember);
+
+  form.reset();
 });
