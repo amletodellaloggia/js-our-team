@@ -39,6 +39,7 @@ const teamMembers = [
 
 // Prendo il contenitore DOM dove inserirò le card
 const container = document.getElementById("team-container");
+container.classList.add("row", "gx-3", "gy-3", "px-3", "px-md-5"); // Aggiungo classi Bootstrap
 
 // Per ogni membro del team, creo una card
 teamMembers.forEach((member) => {
@@ -51,8 +52,7 @@ teamMembers.forEach((member) => {
 
   // Creo la card (uso d-flex per disporre immagine + testo orizzontalmente)
   const card = document.createElement("div");
-  card.className =
-    "card bg-dark text-white d-flex flex-row align-items-center overflow-hidden";
+  card.className = "bg-dark text-white d-flex flex-row align-items-center overflow-hidden shadow-sm rounded";
 
   // Creo l'immagine del membro (sarà affiancata al testo)
   const image = document.createElement("img");
@@ -84,4 +84,14 @@ teamMembers.forEach((member) => {
     innerText: email,
     className: "text-info text-decoration-none",
   });
+  // Inserisco i contenuti nel body usando spread + rest operator
+  const content = [title, subtitle, emailLink];
+  body.append(...content); // Uso spread per appendere tutti
+
+  // Assemblo card con immagine e body
+  card.append(image, body);
+  col.append(card);
+
+  // Inserisco la colonna nel container principale
+  container.appendChild(col);
 });
