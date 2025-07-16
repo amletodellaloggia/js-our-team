@@ -41,6 +41,63 @@ const teamMembers = [
 const container = document.getElementById("team-container");
 container.classList.add("row", "gx-3", "gy-3", "px-3", "px-md-5"); // Aggiungo classi Bootstrap
 
+// Funzione per creare card e inserirle nel container
+function addMemberCard(member) {
+  // Uso destructuring per estrarre i campi da ogni oggetto
+  const { name, role, email, img } = member;
+
+  // Creo la colonna responsiva (col-12 su mobile, col-md-6, col-lg-4 su desktop)
+  const col = document.createElement("div");
+  col.className = "col-12 col-md-6 col-lg-4";
+
+  // Creo la card (uso d-flex per disporre immagine + testo orizzontalmente)
+  const card = document.createElement("div");
+  card.className = "bg-dark text-white d-flex flex-row align-items-stretch overflow-hidden shadow-sm rounded";
+  card.style.height = "100px";
+
+  // Creo l'immagine del membro (sarà affiancata al testo)
+  const image = document.createElement("img");
+  image.src = img;
+  image.alt = name;
+  image.className = "img-fluid";
+  image.style.width = "100px";
+  image.style.objectFit = "cover";
+  image.style.display = "block";
+  image.style.height = "100%";
+
+  // Creo il corpo della card con nome, ruolo e email
+  const body = document.createElement("div");
+  body.className = "card-body py-2 px-3"; 
+
+  // Creo il nome
+  const title = document.createElement("h5");
+  title.className = "card-title fw-bold text-uppercase mb-1";
+  title.innerText = name;
+
+  // Creo il ruolo
+  const subtitle = document.createElement("p");
+  subtitle.className = "card-text mb-1";
+  subtitle.innerText = role;
+
+  // Creo il link email
+  const emailLink = document.createElement("a");
+  emailLink.href = `mailto:${email}`;
+  emailLink.innerText = email;
+  emailLink.className = "text-info text-decoration-none";
+
+  // Inserisco i contenuti nel body usando spread + rest operator
+  const content = [title, subtitle, emailLink];
+  body.append(...content); // Uso spread per appendere tutti
+
+  card.append(image, body);
+  col.append(card);
+
+  // Inserisco la colonna nel container principale
+  container.appendChild(col);
+}
+
+teamMembers.forEach(addMemberCard);
+
 // Creo il form per aggiungere membri
 const formWrapper = document.createElement("div");
 formWrapper.id = "form-wrapper";
@@ -67,73 +124,9 @@ form.innerHTML = `
 
 formWrapper.appendChild(form);
 
-const mainContainer = container.closest(".container");
-if (mainContainer) {
-  mainContainer.appendChild(formWrapper);
-} else {
-  document.body.appendChild(formWrapper);
-}
-
-// Funzione per creare card e inserirle nel container
-function addMemberCard(member) {
-  // Uso destructuring per estrarre i campi da ogni oggetto
-  const { name, role, email, img } = member;
-
-  // Creo la colonna responsiva (col-12 su mobile, col-md-6, col-lg-4 su desktop)
-  const col = document.createElement("div");
-  col.className = "col-12 col-md-6 col-lg-4";
-
-  // Creo la card (uso d-flex per disporre immagine + testo orizzontalmente)
-  const card = document.createElement("div");
-  card.className = "bg-dark text-white d-flex flex-row align-items-center overflow-hidden shadow-sm rounded";
-
-  // Creo l'immagine del membro (sarà affiancata al testo)
-  const image = document.createElement("img");
-  Object.assign(image.style, {
-  width: "100px",
-  height: "100%",
-  objectFit: "cover",
-  display: "block",
-});
-
-image.src = img;
-image.alt = name;
-card.style.height = "100px";
-
-  // Creo il corpo della card con nome, ruolo e email
-  const body = document.createElement("div");
-  body.className = "card-body py-2 px-3"; // compatto
-
-  // Creo il nome (grassetto, maiuscolo)
-  const title = document.createElement("h5");
-  title.className = "card-title fw-bold text-uppercase mb-1";
-  title.innerText = name;
-
-  // Creo il ruolo
-  const subtitle = document.createElement("p");
-  subtitle.className = "card-text mb-1";
-  subtitle.innerText = role;
-
-  // Creo il link email
-  const emailLink = document.createElement("a");
-  Object.assign(emailLink, {
-    href: `mailto:${email}`,
-    innerText: email,
-    className: "text-info text-decoration-none",
-  });
-  // Inserisco i contenuti nel body usando spread + rest operator
-  const content = [title, subtitle, emailLink];
-  body.append(...content); // Uso spread per appendere tutti
-
-  // Assemblo card con immagine e body
-  card.append(image, body);
-  col.append(card);
-
-  // Inserisco la colonna nel container principale
-  container.appendChild(col);
-}
-
-teamMembers.forEach(addMemberCard);
+// Appendo il form
+const mainContainer = document.querySelector(".container");
+mainContainer.appendChild(formWrapper);
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();

@@ -35,7 +35,7 @@ h1 {
   margin-top: 2rem;
   border-radius: 0.5rem;
   padding: 1rem;
-  background-color: #212529; /* stesso sfondo dark delle card */
+  background-color: #212529;
   box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
   color: white;
 }
