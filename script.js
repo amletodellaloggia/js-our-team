@@ -51,7 +51,8 @@ teamMembers.forEach((member) => {
 
   // Creo la card (uso d-flex per disporre immagine + testo orizzontalmente)
   const card = document.createElement("div");
-  card.className = "card bg-dark text-white d-flex flex-row align-items-center overflow-hidden";
+  card.className =
+    "card bg-dark text-white d-flex flex-row align-items-center overflow-hidden";
 
   // Creo l'immagine del membro (sarà affiancata al testo)
   const image = document.createElement("img");
@@ -61,4 +62,26 @@ teamMembers.forEach((member) => {
     className: "img-fluid",
     style: "width: 100px; height: 100%; object-fit: cover",
   });
-})
+
+  // Creo il corpo della card con nome, ruolo e email
+  const body = document.createElement("div");
+  body.className = "card-body py-2 px-3"; // compatto
+
+  // Creo il nome (grassetto, maiuscolo)
+  const title = document.createElement("h5");
+  title.className = "card-title fw-bold text-uppercase mb-1";
+  title.innerText = name;
+
+  // Creo il ruolo
+  const subtitle = document.createElement("p");
+  subtitle.className = "card-text mb-1";
+  subtitle.innerText = role;
+
+  // Creo il link email
+  const emailLink = document.createElement("a");
+  Object.assign(emailLink, {
+    href: `mailto:${email}`,
+    innerText: email,
+    className: "text-info text-decoration-none",
+  });
+});
