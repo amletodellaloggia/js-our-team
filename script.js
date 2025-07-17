@@ -52,7 +52,7 @@ function addMemberCard(member) {
 
   // Creo la card (uso d-flex per disporre immagine + testo orizzontalmente)
   const card = document.createElement("div");
-  card.className = "bg-dark text-white d-flex flex-row align-items-stretch overflow-hidden shadow-sm rounded";
+  card.className = "bg-dark text-white d-flex flex-row align-items-stretch overflow-hidden shadow-sm rounded-0";
   card.style.height = "100px";
 
   // Creo l'immagine del membro (sarà affiancata al testo)
@@ -101,7 +101,7 @@ teamMembers.forEach(addMemberCard);
 // Creo il form per aggiungere membri
 const formWrapper = document.createElement("div");
 formWrapper.id = "form-wrapper";
-formWrapper.className = "bg-dark text-white shadow-sm rounded p-3 mb-4 mx-3 mx-md-5";
+formWrapper.className = "bg-dark text-white shadow-sm rounded-0 p-3 mb-4 mx-3 mx-md-5";
 
 const form = document.createElement("form");
 form.id = "add-member-form";
